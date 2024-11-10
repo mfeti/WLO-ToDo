@@ -14,9 +14,8 @@ export default function App() {
     AOS.refresh();
   }, []);
   return (
-    <div className="grid grid-cols-4 ">
+    <div className="flex justify-between">
       <Navbar />
-
       <Main />
       <Sidebar />
     </div>
