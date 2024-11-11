@@ -3,13 +3,61 @@ import { months } from "../constants";
 import TaskItem from "./TaskItem";
 import { useState } from "react";
 
+const tempTasks = [
+  {
+    id: "001",
+    title: "👩‍💻 Promotion banner",
+    tag: "GoPay",
+    createdAt: "Mon Nov 11 2024",
+    isCompleted: false,
+    isFavorite: false,
+  },
+  {
+    id: "002",
+    title: "🚀 Astronomer deal",
+    tag: "Content dump",
+    createdAt: "Mon Nov 1 2024",
+    isCompleted: false,
+    isFavorite: false,
+  },
+  {
+    id: "003",
+    title: "👨‍⚕️ Hospital appointment",
+    tag: "Personal",
+    createdAt: "Mon Nov 10 2024",
+    isCompleted: false,
+    isFavorite: true,
+  },
+];
+
 function Main() {
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [tasks, setTasks] = useState(tempTasks);
+  const [completedTasks, setCompletedTasks] = useState([]);
   const now = new Date();
-  const handleToggle = (e) => {
-    e.preventDefault();
-    setIsFavorite((prev) => !prev);
+
+  const handleToggle = (id) => {
+    if (id === undefined) return;
+    const newTasks = tasks.map((task) => {
+      return task.id === id
+        ? { ...task, isFavorite: !task.isFavorite }
+        : { ...task };
+    });
+    setTasks(newTasks);
   };
+
+  const handleCompleted = (id) => {
+    if (!id) return;
+    const completedTask = tasks.filter((task) => task.id === id);
+    setCompletedTasks((prev) => [...prev, completedTask]);
+    const newTasks = tasks.map((task) => {
+      return task.id === id
+        ? { ...task, isCompleted: !task.isCompleted }
+        : { ...task };
+    });
+    setTasks(newTasks);
+    // setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
     <section className="w-full min-h-screen">
       <div className="py-10 px-10">
@@ -30,7 +78,15 @@ function Main() {
         </div>
         {/* main section  */}
         <div className="mt-5 space-y-5">
-          <TaskItem isFavorite={isFavorite} onClick={handleToggle} />
+          {tasks.length > 0 &&
+            tasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                {...task}
+                onClick={handleToggle}
+                onChanged={handleCompleted}
+              />
+            ))}
         </div>
       </div>
     </section>
