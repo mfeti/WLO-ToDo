@@ -9,7 +9,7 @@ import { SlEnergy } from "react-icons/sl";
 
 function Navbar() {
   return (
-    <section className="bg-gray-100 w-[350px] h-screen">
+    <section className="bg-gray-100 min-w-[350px] lg:block hidden min-h-screen">
       <div className="mx-4 my-10">
         <div className="space-y-6">
           {/* logo section  */}
