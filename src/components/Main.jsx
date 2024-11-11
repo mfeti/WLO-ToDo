@@ -1,8 +1,15 @@
-import { FaPlus, FaRegStar, FaStar } from "react-icons/fa";
-import { months, dateConverter } from "../constants";
+import { FaPlus } from "react-icons/fa";
+import { months } from "../constants";
+import TaskItem from "./TaskItem";
+import { useState } from "react";
 
 function Main() {
+  const [isFavorite, setIsFavorite] = useState(false);
   const now = new Date();
+  const handleToggle = (e) => {
+    e.preventDefault();
+    setIsFavorite((prev) => !prev);
+  };
   return (
     <section className="w-full min-h-screen">
       <div className="py-10 px-10">
@@ -23,93 +30,7 @@ function Main() {
         </div>
         {/* main section  */}
         <div className="mt-5 space-y-5">
-          <div className="flex justify-between items-center">
-            {/* left side  */}
-            <div className="flex gap-5 items-center">
-              <input type="checkbox" className="w-4 h-4 " />
-              <div className="">
-                <p className="font-semibold">👩‍💻 Promotion banner</p>
-                <p className="text-gray-600 flex gap-3">
-                  <span>GoPay</span>
-                  <span className="text-gray-400 font-bold text-3xl relative">
-                    <span className="absolute -top-1/2 ">.</span>
-                  </span>
-                  <span className="text-blue-500">{dateConverter(now)}</span>
-                </p>
-              </div>
-            </div>
-            {/* right side  */}
-            <div className="">
-              <FaStar className="text-blue-500 w-6 h-6 cursor-pointer" />
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            {/* left side  */}
-            <div className="flex gap-5 items-center">
-              <input type="checkbox" className="w-4 h-4 " />
-              <div className="">
-                <p className="font-semibold">👩‍💻 Promotion banner</p>
-                <p className="text-gray-600 flex gap-3">
-                  <span>GoPay</span>
-                  <span className="text-gray-400 font-bold text-3xl relative">
-                    <span className="absolute -top-1/2 ">.</span>
-                  </span>
-                  <span className="text-blue-500">
-                    {dateConverter("Mon Nov 4 2024")}
-                  </span>
-                </p>
-              </div>
-            </div>
-            {/* right side  */}
-            <div className="">
-              <FaRegStar className="text-blue-500 w-6 h-6 cursor-pointer" />
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            {/* left side  */}
-            <div className="flex gap-5 items-center">
-              <input type="checkbox" className="w-4 h-4 " />
-              <div className="">
-                <p className="font-semibold">👩‍💻 Promotion banner</p>
-                <p className="text-gray-600 flex gap-3">
-                  <span>GoPay</span>
-                  <span className="text-gray-400 font-bold text-3xl relative">
-                    <span className="absolute -top-1/2 ">.</span>
-                  </span>
-                  <span className="text-blue-500">
-                    {dateConverter("Mon Nov 10 2024")}
-                  </span>
-                </p>
-              </div>
-            </div>
-            {/* right side  */}
-            <div className="">
-              <FaRegStar className="text-blue-500 w-6 h-6 cursor-pointer" />
-            </div>
-          </div>
-          <div className="flex justify-between items-center">
-            {/* left side  */}
-            <div className="flex gap-5 items-center">
-              <input type="checkbox" className="w-4 h-4 " />
-              <div className="">
-                <p className="font-semibold">👩‍💻 Promotion banner</p>
-                <p className="text-gray-600 flex gap-3">
-                  <span>GoPay</span>
-                  <span className="text-gray-400 font-bold text-3xl relative">
-                    <span className="absolute -top-1/2 ">.</span>
-                  </span>
-                  <span className="text-blue-500">
-                    {dateConverter("Mon Nov 1 2024")}
-                    {/* {days[day]}, {months[now.getMonth()].slice(0, 3)} {date} */}
-                  </span>
-                </p>
-              </div>
-            </div>
-            {/* right side  */}
-            <div className="">
-              <FaStar className="text-blue-500 w-6 h-6 cursor-pointer" />
-            </div>
-          </div>
+          <TaskItem isFavorite={isFavorite} onClick={handleToggle} />
         </div>
       </div>
     </section>
