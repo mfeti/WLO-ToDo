@@ -72,6 +72,7 @@ const tempTasks = [
 export default function App() {
   const [isPopup, setIsPopup] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSideOpen, setIsSideOpen] = useState(false);
   const [tasks, setTasks] = useState(tempTasks);
   const [completedTasks, setCompletedTasks] = useState([]);
   useEffect(function () {
@@ -90,6 +91,9 @@ export default function App() {
 
   const handleSidebar = () => {
     setIsOpen((prev) => !prev);
+  };
+  const handleNavbar = () => {
+    setIsSideOpen((prev) => !prev);
   };
 
   const addTask = (newTask) => {
@@ -144,11 +148,14 @@ export default function App() {
         handleFavorite={handleFavorite}
         handleSidebar={handleSidebar}
         isOpen={isOpen}
+        isSideOpen={isSideOpen}
+        handleNavbar={handleNavbar}
       />
       <Sidebar
         completedTasks={completedTasks}
         handleCompleted={handleCompleted}
         handleFavorite={handleFavorite}
+        isSideOpen={isSideOpen}
       />
       {isPopup && (
         <NewTaskForm handleTaskCreate={handleTaskCreate} addTask={addTask} />

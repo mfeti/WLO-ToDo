@@ -12,12 +12,16 @@ function Main({
   handleFavorite,
   isOpen,
   handleSidebar,
+  isSideOpen,
+  handleNavbar,
 }) {
   const now = new Date();
   return (
     <section
-      className={`${isOpen ? "blur-sm" : ""} w-full min-h-screen `}
-      onClick={isOpen && handleSidebar}
+      className={`${
+        isOpen || isSideOpen ? "blur-sm" : ""
+      } w-full min-h-screen `}
+      onClick={isOpen ? handleSidebar : isSideOpen && handleNavbar}
     >
       <div className="py-10 px-10">
         {/* if mobile responsive  */}
@@ -27,7 +31,7 @@ function Main({
               className="text-3xl cursor-pointer"
               onClick={handleSidebar}
             />
-            <Article isInclude={false} />
+            <Article isInclude={false} onClick={handleNavbar} />
           </div>
         )}
         {/* header section  */}

@@ -2,7 +2,7 @@
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import Me from "../assets/Umagic.jpg";
-function Article({ isInclude = true }) {
+function Article({ isInclude = true, onClick }) {
   return (
     <div className="flex justify-between items-center gap-2">
       <div className="flex gap-2 items-center">
@@ -29,8 +29,14 @@ function Article({ isInclude = true }) {
       </div>
       {/* icons section  */}
       <div className="text-blue-500 flex gap-4 items-center">
-        <IoIosNotificationsOutline className="text-3xl cursor-pointer hover:scale-105 transition-all duration-150" />
-        <IoSettingsOutline className="text-2xl cursor-pointer hover:scale-105 transition-all duration-150" />
+        <IoIosNotificationsOutline
+          className="text-3xl cursor-pointer hover:scale-105 transition-all duration-150"
+          onClick={onClick}
+        />
+        <IoSettingsOutline
+          className="text-2xl cursor-pointer hover:scale-105 transition-all duration-150"
+          onClick={onClick}
+        />
       </div>
     </div>
   );
