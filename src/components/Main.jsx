@@ -2,10 +2,8 @@
 import { FaPlus } from "react-icons/fa";
 import { months } from "../constants";
 import TaskItem from "./TaskItem";
-import { useState } from "react";
 
-function Main({ handleTaskCreate, tasks, setTasks }) {
-  const [completedTasks, setCompletedTasks] = useState([]);
+function Main({ handleTaskCreate, tasks, setTasks, handleCompleted }) {
   const now = new Date();
 
   const handleToggle = (id) => {
@@ -16,19 +14,6 @@ function Main({ handleTaskCreate, tasks, setTasks }) {
         : { ...task };
     });
     setTasks(newTasks);
-  };
-
-  const handleCompleted = (id) => {
-    if (!id) return;
-    const completedTask = tasks.filter((task) => task.id === id);
-    setCompletedTasks((prev) => [...prev, completedTask]);
-    const newTasks = tasks.map((task) => {
-      return task.id === id
-        ? { ...task, isCompleted: !task.isCompleted }
-        : { ...task };
-    });
-    setTasks(newTasks);
-    // setTasks(tasks.filter((task) => task.id !== id));
   };
 
   return (

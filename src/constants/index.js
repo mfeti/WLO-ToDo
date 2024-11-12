@@ -40,5 +40,5 @@ export const dateConverter = (convertedDate) => {
     if (yesterday === date) return "Yesterday";
     if (sevenDaysAgo <= date) return "Last week";
   }
-  return `${days[day]}, ${months[month].slice(0, 3)} ${date}`;
+  return `${days[day]}, ${months[month]?.slice(0, 3)} ${date}`;
 };
