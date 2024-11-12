@@ -10,7 +10,7 @@ function Article({ isInclude = true }) {
         <div
           className={`${
             isInclude ? "w-12 h-12" : "w-10 h-10"
-          } bg-blue-500 rounded-full`}
+          } bg-blue-500 rounded-full hover:scale-105 transition-all duration-150`}
         >
           <img
             src={Me}
@@ -28,9 +28,9 @@ function Article({ isInclude = true }) {
         )}
       </div>
       {/* icons section  */}
-      <div className="text-blue-500 flex gap-4">
-        <IoIosNotificationsOutline className="text-3xl cursor-pointer" />
-        <IoSettingsOutline className="text-2xl cursor-pointer" />
+      <div className="text-blue-500 flex gap-4 items-center">
+        <IoIosNotificationsOutline className="text-3xl cursor-pointer hover:scale-105 transition-all duration-150" />
+        <IoSettingsOutline className="text-2xl cursor-pointer hover:scale-105 transition-all duration-150" />
       </div>
     </div>
   );

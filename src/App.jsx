@@ -134,7 +134,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex justify-between relative">
+    <div className="flex justify-between relative overflow-hidden">
       <Navbar isOpen={isOpen} />
       <Main
         handleTaskCreate={handleTaskCreate}

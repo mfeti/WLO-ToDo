@@ -7,15 +7,16 @@ import { PiCirclesFourBold } from "react-icons/pi";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { SiContentstack, SiStudio3T } from "react-icons/si";
 import { SlEnergy } from "react-icons/sl";
+import Article from "./Article";
 
 function Navbar({ isOpen }) {
   return (
     <section
       className={`bg-gray-100 min-w-[350px] ${
-        isOpen ? "block" : "lg:block hidden"
+        isOpen ? "block relative" : "lg:block hidden"
       } min-h-screen`}
     >
-      <div className="mx-4 my-10">
+      <div className={`mx-4 my-10 `}>
         <div className="space-y-6">
           {/* logo section  */}
           <div className="flex gap-2 items-center">
@@ -36,7 +37,7 @@ function Navbar({ isOpen }) {
             <p className="font-semibold text-gray-500">Favorites</p>
             <div className="mt-5 space-y-6">
               {/* My day  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <SlEnergy className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">MyDay</p>
@@ -46,7 +47,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* important  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <RiErrorWarningLine className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -59,7 +60,7 @@ function Navbar({ isOpen }) {
                 </div> */}
               </div>
               {/* personal  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <FaRegUserCircle className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -71,7 +72,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* All  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <PiCirclesFourBold className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">All</p>
@@ -81,7 +82,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* completed  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <FaRegCheckCircle className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -93,7 +94,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* All  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <MdAssignmentAdd className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -112,7 +113,7 @@ function Navbar({ isOpen }) {
             <p className="font-semibold text-gray-500">Your own tags</p>
             <div className="mt-5 space-y-6">
               {/* Go pay  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <IoWallet className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">GoPay</p>
@@ -122,7 +123,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* Kretya studio */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <SiStudio3T className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -134,7 +135,7 @@ function Navbar({ isOpen }) {
                 </div>
               </div>
               {/* Content Dump  */}
-              <div className="flex justify-between">
+              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
                 <div className="flex gap-2 items-center">
                   <SiContentstack className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">
@@ -148,6 +149,11 @@ function Navbar({ isOpen }) {
             </div>
           </div>
         </div>
+        {isOpen && (
+          <div className="relative top-10 border-t-2 p-2">
+            <Article isInclude={false} />
+          </div>
+        )}
       </div>
     </section>
   );

@@ -22,7 +22,7 @@ function Main({
       <div className="py-10 px-10">
         {/* if mobile responsive  */}
         {!isOpen && (
-          <div className="flex justify-between lg:hidden mb-5 items-center">
+          <div className="flex justify-between lg:hidden mb-5 items-center shadow-md py-2 px-3">
             <GiHamburgerMenu
               className="text-3xl cursor-pointer"
               onClick={handleSidebar}
