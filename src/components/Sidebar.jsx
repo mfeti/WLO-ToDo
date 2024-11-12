@@ -1,48 +1,75 @@
 /* eslint-disable react/prop-types */
-import { IoSettingsOutline } from "react-icons/io5";
-import Me from "../assets/Umagic.jpg";
-import { IoIosNotificationsOutline } from "react-icons/io";
 import TaskItem from "./TaskItem";
-function Sidebar({ completedTasks }) {
-  console.log(completedTasks);
+import { LocalizationProvider, StaticDatePicker } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
+import { useState } from "react";
+import { months } from "../constants";
+import Article from "./Article";
+
+function Sidebar({ completedTasks, handleCompleted, handleFavorite }) {
+  const [filterDate, setFilterDate] = useState(new Date());
+  const newCompletedTasks = completedTasks.filter(
+    (task) =>
+      new Date(task.completedAt).getDate() === new Date(filterDate).getDate()
+  );
+  const date = new Date(filterDate);
+  const [dates, month, year] = [
+    date.getDate(),
+    date.getMonth(),
+    date.getFullYear(),
+  ];
+
   return (
-    <section className="bg-gray-100 min-w-[380px] min-h-screen block">
+    <section className="bg-gray-100 min-w-[380px] min-h-screen xl:block hidden">
       <div className="mx-4 my-10">
         {/* top section  */}
-        <div className="flex justify-between items-center">
-          <div className="flex gap-2 items-center">
-            {/* avatar  */}
-            <div className="bg-blue-500 w-12 h-12 rounded-full">
-              <img
-                src={Me}
-                alt="Mohammed Ahemd"
-                className="w-12 h-12 p-[2px] rounded-full object-cover"
-              />
-            </div>
-            <div className="">
-              <p className="font-semibold text-xl">Mohammed Ahmed</p>
-              <p className="text-gray-500">mfeticode@gmail.com</p>
-            </div>
-          </div>
-          {/* icons section  */}
-          <div className="text-blue-500 flex gap-4">
-            <IoIosNotificationsOutline className="text-3xl cursor-pointer" />
-            <IoSettingsOutline className="text-2xl cursor-pointer" />
-          </div>
-        </div>
+        <Article />
         {/* Date section  */}
         <div className="mt-5">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <StaticDatePicker
+              defaultValue={dayjs(filterDate)}
+              maxDate={dayjs(new Date())}
+              onChange={(e) => {
+                setFilterDate(e.$d);
+              }}
+              sx={{
+                bgcolor: "transparent",
+                fontSize: "",
+              }}
+            />
+          </LocalizationProvider>
+        </div>
+
+        {/* completed tasks  */}
+        <div className="mt-12">
           {/* title section*/}
           <div className="">
             <p className="font-semibold text-xl">Completed task</p>
           </div>
           {/* list section  */}
-          <div className="mt-5 space-y-5">
-            {completedTasks?.length > 0 &&
-              completedTasks.map((task) => (
-                <TaskItem key={task.id} {...task} />
-              ))}
-          </div>
+          {newCompletedTasks?.length > 0 ? (
+            <div className="mt-5 space-y-5">
+              {newCompletedTasks?.length > 0 &&
+                newCompletedTasks.map((task) => (
+                  <TaskItem
+                    key={task.id}
+                    {...task}
+                    onClick={handleFavorite}
+                    onChanged={handleCompleted}
+                  />
+                ))}
+            </div>
+          ) : (
+            <p className="mt-5 font-semibold text-xl text-gray-400 text-center">
+              <span className="block">😢 </span>
+              Sry you have not completed task on{" "}
+              <span className="text-red-300">
+                {months[month].slice(0, 3)} {dates} {year}
+              </span>
+            </p>
+          )}
         </div>
       </div>
     </section>

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { FaRegCheckCircle, FaRegUserCircle, FaSearch } from "react-icons/fa";
 import { FcTodoList } from "react-icons/fc";
 import { IoWallet } from "react-icons/io5";
@@ -7,9 +8,13 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { SiContentstack, SiStudio3T } from "react-icons/si";
 import { SlEnergy } from "react-icons/sl";
 
-function Navbar() {
+function Navbar({ isOpen }) {
   return (
-    <section className="bg-gray-100 min-w-[350px] lg:block hidden min-h-screen">
+    <section
+      className={`bg-gray-100 min-w-[350px] ${
+        isOpen ? "block" : "lg:block hidden"
+      } min-h-screen`}
+    >
       <div className="mx-4 my-10">
         <div className="space-y-6">
           {/* logo section  */}

@@ -2,23 +2,34 @@
 import { FaPlus } from "react-icons/fa";
 import { months } from "../constants";
 import TaskItem from "./TaskItem";
+import { GiHamburgerMenu } from "react-icons/gi";
+import Article from "./Article";
 
-function Main({ handleTaskCreate, tasks, setTasks, handleCompleted }) {
+function Main({
+  handleTaskCreate,
+  tasks,
+  handleCompleted,
+  handleFavorite,
+  isOpen,
+  handleSidebar,
+}) {
   const now = new Date();
-
-  const handleToggle = (id) => {
-    if (id === undefined) return;
-    const newTasks = tasks.map((task) => {
-      return task.id === id
-        ? { ...task, isFavorite: !task.isFavorite }
-        : { ...task };
-    });
-    setTasks(newTasks);
-  };
-
   return (
-    <section className="w-full min-h-screen">
+    <section
+      className={`${isOpen ? "blur-sm" : ""} w-full min-h-screen `}
+      onClick={isOpen && handleSidebar}
+    >
       <div className="py-10 px-10">
+        {/* if mobile responsive  */}
+        {!isOpen && (
+          <div className="flex justify-between lg:hidden mb-5 items-center">
+            <GiHamburgerMenu
+              className="text-3xl cursor-pointer"
+              onClick={handleSidebar}
+            />
+            <Article isInclude={false} />
+          </div>
+        )}
         {/* header section  */}
         <div className="flex justify-between">
           <div className="space-y-[2px]">
@@ -44,7 +55,7 @@ function Main({ handleTaskCreate, tasks, setTasks, handleCompleted }) {
               <TaskItem
                 key={task.id}
                 {...task}
-                onClick={handleToggle}
+                onClick={handleFavorite}
                 onChanged={handleCompleted}
               />
             ))}

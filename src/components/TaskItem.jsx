@@ -40,17 +40,19 @@ function TaskItem({
         </div>
       </div>
       {/* right side  */}
-      <div className="">
-        <FaStar
-          className={`${
-            isFavorite ? "text-blue-500" : "text-gray-300"
-          } w-6 h-6 cursor-pointer`}
-          onClick={(e) => {
-            e.preventDefault();
-            onClick(id);
-          }}
-        />
-      </div>
+      {!isCompleted && (
+        <div className="">
+          <FaStar
+            className={`${
+              isFavorite ? "text-blue-500" : "text-gray-300"
+            } w-6 h-6 cursor-pointer`}
+            onClick={(e) => {
+              e.preventDefault();
+              onClick(id);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
