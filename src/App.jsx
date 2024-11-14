@@ -76,8 +76,26 @@ export default function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
   );
+  const [tags, setTags] = useState([
+    { title: "Go Pay", numTask: 10 },
+    { title: "Sweet Home", numTask: 1 },
+  ]);
 
-  const [completedTasks, setCompletedTasks] = useState([]);
+  const numTasks = tasks.length;
+  const importantTasks = countTags("important");
+  const myDayTasks = countTags("MyDay");
+  const personalTasks = countTags("personal");
+  const toMeTasks = countTags("assign to me");
+  const completedTasks = tasks.filter((total, task) => {
+    return task.isCompleted ? total + 1 : total;
+  }, 0);
+
+  function countTags(tag) {
+    const numTasks = tasks.reduce((total, task) => {
+      return task.tag.toLowerCase() === tag.toLowerCase() ? total + 1 : total;
+    }, 0);
+    return numTasks;
+  }
 
   useEffect(function () {
     AOS.init({
@@ -118,25 +136,10 @@ export default function App() {
 
     const newTasks = tasks.map((task) => {
       return task.id === id
-        ? { ...task, isCompleted: !task.isCompleted }
+        ? { ...task, isCompleted: !task.isCompleted, completedAt: new Date() }
         : { ...task };
     });
     setTasks(newTasks);
-
-    //make uncompleted
-    if (completedTasks.find((task) => id === task.id) !== undefined) {
-      setCompletedTasks(completedTasks.filter((task) => task.id !== id));
-      return;
-    }
-
-    //make completed
-    const [completedTask] = newTasks.filter((task) => task.id === id);
-    setCompletedTasks((prev) => [
-      ...prev,
-      { ...completedTask, completedAt: new Date() },
-    ]);
-
-    // setTasks(tasks.filter((task) => task.id !== id));
   };
 
   const handleFavorite = (id) => {
@@ -151,7 +154,16 @@ export default function App() {
 
   return (
     <div className="flex justify-between relative overflow-hidden">
-      <Navbar isOpen={isOpen} />
+      <Navbar
+        tags={tags}
+        isOpen={isOpen}
+        numTasks={numTasks}
+        importantTasks={importantTasks}
+        myDayTasks={myDayTasks}
+        personalTasks={personalTasks}
+        toMeTasks={toMeTasks}
+        completedTasks={completedTasks}
+      />
       <Main
         handleTaskCreate={handleTaskCreate}
         tasks={tasks}
@@ -164,7 +176,7 @@ export default function App() {
         handleNavbar={handleNavbar}
       />
       <Sidebar
-        completedTasks={completedTasks}
+        tasks={tasks}
         handleCompleted={handleCompleted}
         handleFavorite={handleFavorite}
         isSideOpen={isSideOpen}

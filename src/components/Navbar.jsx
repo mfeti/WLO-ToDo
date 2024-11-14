@@ -1,15 +1,23 @@
 /* eslint-disable react/prop-types */
 import { FaRegCheckCircle, FaRegUserCircle, FaSearch } from "react-icons/fa";
 import { FcTodoList } from "react-icons/fc";
-import { IoWallet } from "react-icons/io5";
 import { MdAssignmentAdd } from "react-icons/md";
 import { PiCirclesFourBold } from "react-icons/pi";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { SiContentstack, SiStudio3T } from "react-icons/si";
 import { SlEnergy } from "react-icons/sl";
 import Article from "./Article";
+import { CgPentagonDown } from "react-icons/cg";
 
-function Navbar({ isOpen }) {
+function Navbar({
+  tags,
+  isOpen,
+  numTasks,
+  importantTasks,
+  myDayTasks,
+  toMeTasks,
+  personalTasks,
+  completedTasks,
+}) {
   return (
     <section
       className={`bg-gray-100 min-w-[350px] ${
@@ -42,9 +50,11 @@ function Navbar({ isOpen }) {
                   <SlEnergy className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">MyDay</p>
                 </div>
-                <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
-                  <span>8</span>
-                </div>
+                {myDayTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
+                    <span>{myDayTasks}</span>
+                  </div>
+                )}
               </div>
               {/* important  */}
               <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
@@ -54,10 +64,11 @@ function Navbar({ isOpen }) {
                     Important
                   </p>
                 </div>
-                {/* <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>5</span>
-                  <CiCircleCheck />
-                </div> */}
+                {importantTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                    <span>{importantTasks}</span>
+                  </div>
+                )}
               </div>
               {/* personal  */}
               <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
@@ -67,9 +78,11 @@ function Navbar({ isOpen }) {
                     Personal
                   </p>
                 </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>3</span>
-                </div>
+                {personalTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                    <span>{personalTasks}</span>
+                  </div>
+                )}
               </div>
               {/* All  */}
               <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
@@ -77,9 +90,11 @@ function Navbar({ isOpen }) {
                   <PiCirclesFourBold className="text-blue-500 w-7 h-7" />
                   <p className="font-semibold text-xl text-gray-700">All</p>
                 </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>52</span>
-                </div>
+                {numTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                    <span>{numTasks}</span>
+                  </div>
+                )}
               </div>
               {/* completed  */}
               <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
@@ -89,9 +104,11 @@ function Navbar({ isOpen }) {
                     Completed
                   </p>
                 </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>5</span>
-                </div>
+                {completedTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                    <span>5</span>
+                  </div>
+                )}
               </div>
               {/* All  */}
               <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
@@ -101,9 +118,11 @@ function Navbar({ isOpen }) {
                     Assign to me
                   </p>
                 </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>11</span>
-                </div>
+                {toMeTasks > 0 && (
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                    <span>{toMeTasks}</span>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -113,39 +132,23 @@ function Navbar({ isOpen }) {
             <p className="font-semibold text-gray-500">Your own tags</p>
             <div className="mt-5 space-y-6">
               {/* Go pay  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
-                <div className="flex gap-2 items-center">
-                  <IoWallet className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">GoPay</p>
-                </div>
-                <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
-                  <span>8</span>
-                </div>
-              </div>
-              {/* Kretya studio */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
-                <div className="flex gap-2 items-center">
-                  <SiStudio3T className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Kretya studio
-                  </p>
-                </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>5</span>
-                </div>
-              </div>
-              {/* Content Dump  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
-                <div className="flex gap-2 items-center">
-                  <SiContentstack className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Content Dump
-                  </p>
-                </div>
-                <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                  <span>3</span>
-                </div>
-              </div>
+              {tags.length > 0 &&
+                tags.map((tag) => (
+                  <div
+                    key={tag.title}
+                    className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300"
+                  >
+                    <div className="flex gap-2 items-center">
+                      <CgPentagonDown className="text-blue-500 w-7 h-7" />
+                      <p className="font-semibold text-xl text-gray-700">
+                        {tag.title}
+                      </p>
+                    </div>
+                    <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
+                      <span>{tag.numTask}</span>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

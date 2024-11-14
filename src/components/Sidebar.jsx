@@ -7,13 +7,9 @@ import { useState } from "react";
 import { months } from "../constants";
 import Article from "./Article";
 
-function Sidebar({
-  completedTasks,
-  handleCompleted,
-  handleFavorite,
-  isSideOpen,
-}) {
+function Sidebar({ tasks, handleCompleted, handleFavorite, isSideOpen }) {
   const [filterDate, setFilterDate] = useState(new Date());
+  const completedTasks = tasks.filter((task) => task.isCompleted === true);
   const newCompletedTasks = completedTasks.filter(
     (task) =>
       new Date(task.completedAt).getDate() === new Date(filterDate).getDate()
@@ -27,9 +23,9 @@ function Sidebar({
 
   return (
     <section
-      className={`bg-gray-100 min-w-[380px] min-h-screen ${
-        isSideOpen ? "block" : "xl:block hidden"
-      }`}
+      className={`bg-gray-100 min-w-[350px] ${
+        isSideOpen ? "block" : "lg:block hidden"
+      } min-h-screen`}
     >
       <div className="mx-4 my-10">
         {/* top section  */}
