@@ -21,7 +21,7 @@ function Main({
       className={`${
         isOpen || isSideOpen ? "blur-sm" : ""
       } w-full min-h-screen `}
-      onClick={isOpen ? handleSidebar : isSideOpen && handleNavbar}
+      onClick={isOpen ? handleSidebar : isSideOpen ? handleNavbar : undefined}
     >
       <div className="py-10 px-10">
         {/* if mobile responsive  */}
