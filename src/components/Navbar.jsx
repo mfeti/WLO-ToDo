@@ -12,7 +12,6 @@ import Article from "./Article";
 function Navbar({ isOpen }) {
   return (
     <section
-      data-aos="fade-right"
       className={`bg-gray-100 min-w-[350px] ${
         isOpen ? "block relative" : "lg:block hidden"
       } min-h-screen`}
