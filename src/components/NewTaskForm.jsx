@@ -1,16 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { FaX } from "react-icons/fa6";
+import CreatableSelect from "react-select/creatable";
 
-function NewTaskForm({ handleTaskCreate, addTask }) {
+function NewTaskForm({ handleTaskCreate, addTask, tags }) {
   const [title, setTitle] = useState("");
-  const [tag, setTag] = useState("");
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = {
       title,
-      tag,
+      tag: selectedOption.value,
       createdAt: new Date(),
       id: Date.now(),
       isCompleted: false,
@@ -47,21 +48,21 @@ function NewTaskForm({ handleTaskCreate, addTask }) {
                 id="title"
                 type="text"
                 placeholder="Enter title ..."
-                className="px-3 py-2 w-full rounded-xl focus:outline-none hover:shadow-sm focus:ring focus:ring-blue-100"
+                className="px-3 py-2 w-full border border-gray-300 rounded-lg focus:outline-none hover:shadow-sm focus:border-2 focus:border-blue-500"
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
 
-            <div className="flex items-center gap-2 my-5">
+            <div className="flex items-center gap-2 my-5 cursor-pointer">
               <label htmlFor="title" className="text-lg font-medium w-1/6">
                 Tag:
               </label>
-              <input
-                id="title"
-                type="text"
-                placeholder="Enter title ..."
-                className="px-3 py-2 w-full rounded-xl focus:outline-none hover:shadow-sm focus:ring focus:ring-blue-100"
-                onChange={(e) => setTag(e.target.value)}
+              <CreatableSelect
+                isClearable
+                className="w-full"
+                defaultValue={selectedOption}
+                onChange={setSelectedOption}
+                options={tags}
               />
             </div>
             <div className="flex justify-between my-10">

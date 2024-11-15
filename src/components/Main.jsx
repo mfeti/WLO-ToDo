@@ -4,23 +4,47 @@ import { months } from "../constants";
 import TaskItem from "./TaskItem";
 import { GiHamburgerMenu } from "react-icons/gi";
 import Article from "./Article";
+import { useEffect, useState } from "react";
 
 function Main({
   handleTaskCreate,
-  tasks,
+  filterBy,
   handleCompleted,
   handleFavorite,
   isOpen,
   handleSidebar,
   isSideOpen,
   handleNavbar,
+  tasks,
 }) {
   const now = new Date();
+  const [filterTasks, setFilterTasks] = useState(tasks);
+
+  useEffect(
+    function () {
+      if (filterBy.toLowerCase() === "all") {
+        setFilterTasks(tasks);
+        return;
+      }
+      if (filterBy.toLowerCase() === "completed") {
+        const filterTasks = tasks.filter((task) => task.isCompleted);
+        setFilterTasks(filterTasks);
+        return;
+      }
+      const filterTasks = tasks.filter(
+        (task) => task.tag.toLowerCase() === filterBy.toLowerCase()
+      );
+
+      setFilterTasks(filterTasks);
+    },
+    [filterBy, tasks]
+  );
+
   return (
     <section
       className={`${
         isOpen || isSideOpen ? "blur-sm" : ""
-      } w-full min-h-screen `}
+      } w-full max-h-screen overflow-y-auto`}
       onClick={isOpen ? handleSidebar : isSideOpen ? handleNavbar : undefined}
     >
       <div className="py-10 px-10">
@@ -37,7 +61,9 @@ function Main({
         {/* header section  */}
         <div className="flex justify-between">
           <div className="space-y-[2px]">
-            <p className="text-2xl font-semibold text-stone-800">My Day</p>
+            <p className="text-2xl font-semibold text-stone-800">
+              {filterBy.slice(0, 1).toUpperCase() + filterBy.slice(1)}
+            </p>
             <p className="text-sm text-gray-700">
               {months[now.getMonth()]} {now.getFullYear()}
             </p>
@@ -53,17 +79,27 @@ function Main({
           </div>
         </div>
         {/* main section  */}
-        <div className="mt-5 space-y-5">
-          {tasks?.length > 0 &&
-            tasks.map((task) => (
-              <TaskItem
-                key={task.id}
-                {...task}
-                onClick={handleFavorite}
-                onChanged={handleCompleted}
-              />
-            ))}
-        </div>
+        {filterTasks?.length > 0 && (
+          <div className="mt-5 space-y-5">
+            {filterTasks?.length > 0 &&
+              filterTasks?.map((task) => (
+                <TaskItem
+                  key={task.id}
+                  {...task}
+                  onClick={handleFavorite}
+                  onChanged={handleCompleted}
+                />
+              ))}
+          </div>
+        )}
+        {filterTasks.length === 0 && (
+          <div className="flex justify-center items-center p-20">
+            <p className="sm:text-3xl text-xl font-bold text-center">
+              😢 You have not any task in this{" "}
+              <span className="italic text-red-300">{filterBy}</span> tag!
+            </p>
+          </div>
+        )}
       </div>
     </section>
   );

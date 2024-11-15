@@ -17,6 +17,8 @@ function Navbar({
   toMeTasks,
   personalTasks,
   completedTasks,
+  handleFilterBy,
+  filterBy,
 }) {
   return (
     <section
@@ -45,81 +47,139 @@ function Navbar({
             <p className="font-semibold text-gray-500">Favorites</p>
             <div className="mt-5 space-y-6">
               {/* My day  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "myday"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("myday")}
+              >
                 <div className="flex gap-2 items-center">
-                  <SlEnergy className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">MyDay</p>
+                  <SlEnergy
+                    className={`${
+                      filterBy === "myday" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">MyDay</p>
                 </div>
                 {myDayTasks > 0 && (
-                  <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
+                  <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full text-gray-900">
                     <span>{myDayTasks}</span>
                   </div>
                 )}
               </div>
               {/* important  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "important"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("important")}
+              >
                 <div className="flex gap-2 items-center">
-                  <RiErrorWarningLine className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Important
-                  </p>
+                  <RiErrorWarningLine
+                    className={`${
+                      filterBy === "important" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">Important</p>
                 </div>
                 {importantTasks > 0 && (
-                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full text-gray-900">
                     <span>{importantTasks}</span>
                   </div>
                 )}
               </div>
               {/* personal  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "personal"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("personal")}
+              >
                 <div className="flex gap-2 items-center">
-                  <FaRegUserCircle className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Personal
-                  </p>
+                  <FaRegUserCircle
+                    className={`${
+                      filterBy === "personal" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">Personal</p>
                 </div>
                 {personalTasks > 0 && (
-                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full text-gray-900">
                     <span>{personalTasks}</span>
                   </div>
                 )}
               </div>
               {/* All  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "all"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("all")}
+              >
                 <div className="flex gap-2 items-center">
-                  <PiCirclesFourBold className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">All</p>
+                  <PiCirclesFourBold
+                    className={`${
+                      filterBy === "all" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">All</p>
                 </div>
                 {numTasks > 0 && (
-                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full text-gray-900">
                     <span>{numTasks}</span>
                   </div>
                 )}
               </div>
               {/* completed  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "completed"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("completed")}
+              >
                 <div className="flex gap-2 items-center">
-                  <FaRegCheckCircle className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Completed
-                  </p>
+                  <FaRegCheckCircle
+                    className={`${
+                      filterBy === "completed" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">Completed</p>
                 </div>
                 {completedTasks > 0 && (
                   <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
-                    <span>5</span>
+                    <span>{completedTasks}</span>
                   </div>
                 )}
               </div>
-              {/* All  */}
-              <div className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300">
+              {/* Assign to me  */}
+              <div
+                className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                  filterBy === "toMe"
+                    ? "bg-blue-500 text-white"
+                    : "hover:bg-blue-100 text-gray-700"
+                }`}
+                onClick={() => handleFilterBy("toMe")}
+              >
                 <div className="flex gap-2 items-center">
-                  <MdAssignmentAdd className="text-blue-500 w-7 h-7" />
-                  <p className="font-semibold text-xl text-gray-700">
-                    Assign to me
-                  </p>
+                  <MdAssignmentAdd
+                    className={`${
+                      filterBy === "toMe" ? "text-white" : "text-blue-500"
+                    }  w-7 h-7`}
+                  />
+                  <p className="font-semibold text-xl">Assign to me</p>
                 </div>
                 {toMeTasks > 0 && (
-                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full">
+                  <div className="flex justify-center items-center bg-gray-300 px-3 py-1 text-sm rounded-full text-gray-900">
                     <span>{toMeTasks}</span>
                   </div>
                 )}
@@ -135,16 +195,25 @@ function Navbar({
               {tags.length > 0 &&
                 tags.map((tag) => (
                   <div
-                    key={tag.title}
-                    className="flex justify-between hover:bg-blue-100 p-3 rounded-lg transition-all duration-300"
+                    key={tag.value}
+                    className={`flex justify-between p-3 rounded-lg transition-all duration-300 ${
+                      filterBy === tag.value
+                        ? "bg-blue-500 text-white"
+                        : "hover:bg-blue-100 text-gray-700"
+                    }`}
+                    onClick={() => handleFilterBy(tag.value)}
                   >
                     <div className="flex gap-2 items-center">
-                      <CgPentagonDown className="text-blue-500 w-7 h-7" />
-                      <p className="font-semibold text-xl text-gray-700">
-                        {tag.title}
-                      </p>
+                      <CgPentagonDown
+                        className={`${
+                          filterBy === tag.value
+                            ? "text-white"
+                            : "text-blue-500"
+                        }  w-7 h-7`}
+                      />
+                      <p className="font-semibold text-xl">{tag.label}</p>
                     </div>
-                    <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full">
+                    <div className="flex justify-center items-center bg-gray-300 text-sm px-3 py-1 rounded-full text-gray-900">
                       <span>{tag.numTask}</span>
                     </div>
                   </div>

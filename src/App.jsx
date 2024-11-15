@@ -76,17 +76,17 @@ export default function App() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
   );
-  const [tags, setTags] = useState([
-    { title: "Go Pay", numTask: 10 },
-    { title: "Sweet Home", numTask: 1 },
-  ]);
+  const [tags, setTags] = useState(
+    JSON.parse(localStorage.getItem("tags")) || []
+  );
+  const [filterBy, setFilterBy] = useState("all");
 
   const numTasks = tasks.length;
   const importantTasks = countTags("important");
   const myDayTasks = countTags("MyDay");
   const personalTasks = countTags("personal");
   const toMeTasks = countTags("assign to me");
-  const completedTasks = tasks.filter((total, task) => {
+  const completedTasks = tasks.reduce((total, task) => {
     return task.isCompleted ? total + 1 : total;
   }, 0);
 
@@ -114,6 +114,13 @@ export default function App() {
     [tasks]
   );
 
+  useEffect(
+    function () {
+      localStorage.setItem("tags", JSON.stringify(tags));
+    },
+    [tags]
+  );
+
   const handleTaskCreate = () => {
     setIsPopup((prev) => !prev);
   };
@@ -129,6 +136,20 @@ export default function App() {
   const addTask = (newTask) => {
     if (!newTask) return;
     setTasks((prev) => [...prev, newTask]);
+    const isNew = tags.find((tag) => tag.value === newTask.tag) || false;
+    if (!isNew) {
+      setTags((prev) => [
+        ...prev,
+        { value: newTask.tag, label: newTask.tag, numTask: 1 },
+      ]);
+    } else {
+      const newTags = tags.map((tag) => {
+        return tag.value === newTask.tag
+          ? { ...tag, numTask: tag.numTask + 1 }
+          : tag;
+      });
+      setTags(newTags);
+    }
   };
 
   const handleCompleted = (id) => {
@@ -152,6 +173,19 @@ export default function App() {
     setTasks(newTasks);
   };
 
+  const handleFilterBy = (query) => {
+    if (!query || query.toLowerCase() === "all") {
+      setFilterBy("all");
+      return;
+    }
+    if (query.toLowerCase() === "completed") {
+      setFilterBy("completed");
+      return;
+    }
+
+    setFilterBy(query);
+  };
+
   return (
     <div className="flex justify-between relative overflow-hidden">
       <Navbar
@@ -163,17 +197,19 @@ export default function App() {
         personalTasks={personalTasks}
         toMeTasks={toMeTasks}
         completedTasks={completedTasks}
+        handleFilterBy={handleFilterBy}
+        filterBy={filterBy}
       />
       <Main
         handleTaskCreate={handleTaskCreate}
-        tasks={tasks}
-        setTasks={setTasks}
         handleCompleted={handleCompleted}
         handleFavorite={handleFavorite}
         handleSidebar={handleSidebar}
         isOpen={isOpen}
         isSideOpen={isSideOpen}
         handleNavbar={handleNavbar}
+        filterBy={filterBy}
+        tasks={tasks}
       />
       <Sidebar
         tasks={tasks}
@@ -182,7 +218,12 @@ export default function App() {
         isSideOpen={isSideOpen}
       />
       {isPopup && (
-        <NewTaskForm handleTaskCreate={handleTaskCreate} addTask={addTask} />
+        <NewTaskForm
+          handleTaskCreate={handleTaskCreate}
+          addTask={addTask}
+          tags={tags}
+          setTags={setTags}
+        />
       )}
     </div>
   );
