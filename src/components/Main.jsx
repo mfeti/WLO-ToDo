@@ -53,7 +53,7 @@ function Main({
     <section
       className={`${
         isOpen || isSideOpen ? "blur-sm" : ""
-      } w-full max-h-screen overflow-y-auto`}
+      } w-full min-h-screen max-h-screen overflow-y-auto`}
       onClick={isOpen ? handleSidebar : isSideOpen ? handleNavbar : undefined}
     >
       <div className="py-10 px-10">
@@ -102,8 +102,8 @@ function Main({
           </div>
         )}
         {filterTasks.length === 0 && (
-          <div className="flex justify-center items-center p-20">
-            <p className="sm:text-3xl text-xl font-bold text-center">
+          <div className="flex justify-center items-center py-5">
+            <p className="sm:text-3xl md:text-2xl text-xl font-bold text-center">
               😢 You have not any task in this{" "}
               <span className="italic text-red-300">{filterBy}</span> tag!
             </p>

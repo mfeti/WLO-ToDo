@@ -1,5 +1,5 @@
 import AOS from "aos";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import "aos/dist/aos.css";
 import { Navbar, Main, Sidebar, NewTaskForm } from "./components";
 
@@ -20,6 +20,7 @@ import { Navbar, Main, Sidebar, NewTaskForm } from "./components";
 //     isCompleted: false,
 //     isFavorite: false,
 //   },
+// goto 🕋
 //   {
 //     id: "003",
 //     title: "👨‍⚕️ Hospital appointment",
