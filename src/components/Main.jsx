@@ -16,12 +16,21 @@ function Main({
   isSideOpen,
   handleNavbar,
   tasks,
+  searchBy,
 }) {
   const now = new Date();
   const [filterTasks, setFilterTasks] = useState(tasks);
-
   useEffect(
     function () {
+      if (searchBy.length > 0) {
+        const filterTasks = tasks.filter(
+          (task) =>
+            task.title.toLowerCase().includes(searchBy) ||
+            task.tag.toLowerCase().includes(searchBy)
+        );
+        setFilterTasks(filterTasks);
+        return;
+      }
       if (filterBy.toLowerCase() === "all") {
         setFilterTasks(tasks);
         return;
@@ -37,7 +46,7 @@ function Main({
 
       setFilterTasks(filterTasks);
     },
-    [filterBy, tasks]
+    [filterBy, searchBy, tasks]
   );
 
   return (

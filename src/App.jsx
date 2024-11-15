@@ -80,6 +80,7 @@ export default function App() {
     JSON.parse(localStorage.getItem("tags")) || []
   );
   const [filterBy, setFilterBy] = useState("all");
+  const [searchBy, setSearchBy] = useState("");
 
   const numTasks = tasks.length;
   const importantTasks = countTags("important");
@@ -186,6 +187,11 @@ export default function App() {
     setFilterBy(query);
   };
 
+  const handleSearchBy = (query) => {
+    const searchBy = query.toLowerCase();
+    setSearchBy(searchBy);
+  };
+
   return (
     <div className="flex justify-between relative overflow-hidden">
       <Navbar
@@ -199,6 +205,7 @@ export default function App() {
         completedTasks={completedTasks}
         handleFilterBy={handleFilterBy}
         filterBy={filterBy}
+        handleSearchBy={handleSearchBy}
       />
       <Main
         handleTaskCreate={handleTaskCreate}
@@ -210,6 +217,7 @@ export default function App() {
         handleNavbar={handleNavbar}
         filterBy={filterBy}
         tasks={tasks}
+        searchBy={searchBy}
       />
       <Sidebar
         tasks={tasks}

@@ -18,6 +18,7 @@ function Navbar({
   personalTasks,
   completedTasks,
   handleFilterBy,
+  handleSearchBy,
   filterBy,
 }) {
   return (
@@ -39,6 +40,7 @@ function Navbar({
               type="text"
               placeholder="Search"
               className="pl-7 pr-2 py-2 rounded-lg placeholder:text-gray-500 bg-gray-200 inline-block w-full focus:outline-none focus:ring focus:ring-blue-200 shadow-sm transition-all duration-200"
+              onChange={(e) => handleSearchBy(e.target.value)}
             />
             <FaSearch className="text-gray-500 absolute top-1/2 -translate-y-1/2 left-2 group-hover:text-blue-300 transition-all duration-200" />
           </div>
