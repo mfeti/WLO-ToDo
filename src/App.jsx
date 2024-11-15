@@ -1,6 +1,4 @@
-import AOS from "aos";
-import { useEffect, useReducer, useState } from "react";
-import "aos/dist/aos.css";
+import { useEffect, useState } from "react";
 import { Navbar, Main, Sidebar, NewTaskForm } from "./components";
 
 // const tempTasks = [
@@ -98,16 +96,6 @@ export default function App() {
     }, 0);
     return numTasks;
   }
-
-  useEffect(function () {
-    AOS.init({
-      offset: 200,
-      duration: 600,
-      easing: "ease-in-sine",
-      delay: 100,
-    });
-    AOS.refresh();
-  }, []);
 
   useEffect(
     function () {
